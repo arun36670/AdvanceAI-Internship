@@ -19,7 +19,13 @@ public class Challenge1 {
 
 		System.out.println(Arrays.toString(list));
 		
-		System.out.println(difference(list, k, n));
+		
+		if(difference(list, k, n) > differencem(list, k, n)) {
+			System.out.println(differencem(list, k, n));
+		}
+		else {
+			System.out.println(difference(list, k, n));
+		}
 
 	}
 
@@ -32,6 +38,32 @@ public class Challenge1 {
 		}
 		Arrays.sort(list);
 		return list;
+	}
+	
+	public static int differencem(int[] list, int k, int n) {
+		double sum = 0;
+		for(int i = 0;i<n;i++) {
+			sum += list[i];
+		}
+		double mean = sum/n;
+		
+		for (int i = 0;i<n;i++) {
+			double plus = list[i]+k;
+			plus = Math.abs(mean - plus);
+			double minus = list[i]-k;
+			minus = Math.abs(mean - minus);
+			if(plus>minus) {
+				list[i] -= k;
+			}
+			else {
+				list[i] += k;
+			}
+		}
+		
+		
+		Arrays.sort(list);
+		return list[n-1]-list[0];
+		
 	}
 	
 	public static int difference(int[] list, int k, int n) {
@@ -50,13 +82,13 @@ public class Challenge1 {
 			
 		}
 		Arrays.sort(list);
-		System.out.println(Arrays.toString(list));
 		int[] equals= new int [x];
+		int count = 0;
 		for(int i=0;i<n;i++) {
-			int count = 0;
-			if(list[i]==k) {
+			if(list[i]==k && count!=x) {
 				equals[count]=i;
 				count++;
+
 				
 			}
 		}
@@ -83,7 +115,6 @@ public class Challenge1 {
 		}
 		
 		Arrays.sort(list);
-		System.out.println(Arrays.toString(list));
 		return list[n - 1] - list[0];
 		
 	}
